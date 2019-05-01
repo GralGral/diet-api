@@ -3,7 +3,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <document name="App\User\Infrastructure\User\Persistence\Projection\UserProjection" collection="users" >
-        <id type="string" strategy="none" />
+        <field fieldName="id" id="true" type="string" strategy="none" />
         <embed-one field="firstname" target-document="App\User\Domain\User\ValueObject\UserFirstname" />
         <embed-one field="lastname" target-document="App\User\Domain\User\ValueObject\UserLastname" />
         <embed-one field="credentials" target-document="App\User\Domain\User\ValueObject\Auth\UserCredentials" />

@@ -4,6 +4,6 @@
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Dish\ValueObject\DishIngredient">
         <embed-one field="quantity" target-document="App\Food\Domain\Dish\ValueObject\DishIngredientQuantity" />
-        <embed-one field="food_id" field-name="foodId" target-document="App\Food\Domain\Shared\ValueObject\FoodId" />
+        <embed-one field="food_id" fieldName="foodId" target-document="App\Food\Domain\Shared\ValueObject\FoodId" />
     </embedded-document>
 </doctrine-mongo-mapping>

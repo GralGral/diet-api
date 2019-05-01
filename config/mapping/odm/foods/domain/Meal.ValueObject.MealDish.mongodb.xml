@@ -3,7 +3,7 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Meal\ValueObject\MealDish">
-        <embed-one field="serving_count" field-name="servingCount" target-document="App\Food\Domain\Meal\ValueObject\MealDishServingCount" />
-        <embed-one field="dish_id" field-name="dishId" target-document="App\Food\Domain\Shared\ValueObject\DishId" />
+        <embed-one field="serving_count" fieldName="servingCount" target-document="App\Food\Domain\Meal\ValueObject\MealDishServingCount" />
+        <embed-one field="dish_id" fieldName="dishId" target-document="App\Food\Domain\Shared\ValueObject\DishId" />
     </embedded-document>
 </doctrine-mongo-mapping>

@@ -3,6 +3,6 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Meal\ValueObject\MealDate">
-        <field field-name="value" type="date" />
+        <field fieldName="value" type="date" />
     </embedded-document>
 </doctrine-mongo-mapping>

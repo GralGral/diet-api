@@ -3,6 +3,6 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Food\ValueObject\FoodQuantity">
-        <field field-name="value" type="float" />
+        <field fieldName="value" type="float" />
     </embedded-document>
 </doctrine-mongo-mapping>

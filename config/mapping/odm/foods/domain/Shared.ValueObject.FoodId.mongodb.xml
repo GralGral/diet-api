@@ -3,6 +3,6 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Shared\ValueObject\FoodId">
-        <field field-name="value" type="string" />
+        <field fieldName="value" type="string" />
     </embedded-document>
 </doctrine-mongo-mapping>

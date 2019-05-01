@@ -3,10 +3,10 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <document name="App\Food\Infrastructure\Dish\Persistence\Projection\DishProjection" collection="dishes">
-        <id type="string" strategy="none" />
+        <field fieldName="id" id="true" type="string" strategy="none" />
         <embed-one field="label" target-document="App\Food\Domain\Dish\ValueObject\DishLabel" />
-        <embed-one field="serving_count" field-name="servingCount" target-document="App\Food\Domain\Dish\ValueObject\DishServingCount" />
-        <embed-one field="nutritional_sheet" field-name="nutritionalSheet" target-document="App\Food\Domain\Shared\ValueObject\NutritionalSheet" />
+        <embed-one field="serving_count" fieldName="servingCount" target-document="App\Food\Domain\Dish\ValueObject\DishServingCount" />
+        <embed-one field="nutritional_sheet" fieldName="nutritionalSheet" target-document="App\Food\Domain\Shared\ValueObject\NutritionalSheet" />
         <embed-many
                 field="ingredients"
                 target-document="App\Food\Domain\Dish\ValueObject\DishIngredient"

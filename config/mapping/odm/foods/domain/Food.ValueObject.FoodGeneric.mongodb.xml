@@ -3,6 +3,6 @@
                         xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
                     http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
     <embedded-document name="App\Food\Domain\Food\ValueObject\FoodGeneric">
-        <field field-name="value" type="boolean" />
+        <field fieldName="value" type="boolean" />
     </embedded-document>
 </doctrine-mongo-mapping>
