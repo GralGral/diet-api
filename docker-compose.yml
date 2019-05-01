@@ -1,0 +1,126 @@
+version: "3.7"
+
+services:
+  apache:
+    build:
+      context: ./docker/apache
+      dockerfile: Dockerfile
+    container_name: diet-api-apache
+    working_dir: /app
+    volumes:
+      - ./docker/apache/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
+      - .:/app
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefix.backend=diet.apache"
+      - "traefik.frontend.rule=Host:diet-apache.fit.docker"
+      - "traefik.docker.network=proxy"
+    depends_on:
+      - php
+    networks:
+      - proxy
+      - internal
+
+  mysql:
+    image: mariadb:10.1
+    container_name: diet-api-mysql
+    working_dir: /app
+    restart: always
+    volumes:
+      - .:/app
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - 3306:3306
+    networks:
+      - proxy
+      - internal
+
+  mongo:
+    image: mongo
+    container_name: diet-api-mongo
+    working_dir: /app
+    restart: always
+    volumes:
+      - .:/app
+      - mongo:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - proxy
+      - internal
+
+  mongo-express:
+    image: mongo-express
+    container_name: diet-api-mongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8081"
+      - "traefix.backend=diet.mongo-express"
+      - "traefik.frontend.rule=Host:diet-mongo-express.fit.docker"
+      - "traefik.docker.network=proxy"
+    depends_on:
+      - mongo
+    networks:
+      - proxy
+      - internal
+
+  php:
+    build:
+      context: ./docker/php-fpm
+      dockerfile: Dockerfile
+      args:
+        TIMEZONE: ${TIMEZONE}
+        XDEBUG_REMOTE_ENABLE: ${XDEBUG_REMOTE_ENABLE}
+        XDEBUG_REMOTE_HOST: ${XDEBUG_REMOTE_HOST}
+        XDEBUG_REMOTE_PORT: ${XDEBUG_REMOTE_PORT}
+        XDEBUG_REMOTE_AUTOSTART: ${XDEBUG_REMOTE_AUTOSTART}
+        XDEBUG_REMOTE_CONNECT_BACK: ${XDEBUG_REMOTE_CONNECT_BACK}
+        XDEBUG_PROFILER_ENABLE: ${XDEBUG_PROFILER_ENABLE}
+        XDEBUG_PROFILER_ENABLE_TRIGGER: ${XDEBUG_PROFILER_ENABLE_TRIGGER}
+        XDEBUG_IDEKEY: ${XDEBUG_IDEKEY}
+    container_name: diet-api-php
+    working_dir: /app
+    volumes:
+      - .:/app
+      - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini`
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - proxy
+      - internal
+
+  redis:
+    image: redis:alpine
+    container_name: diet-api-redis
+    labels:
+      - "traefik.enable=true"
+      - "traefix.backend=diet.redis"
+      - "traefik.frontend.rule=Host:diet-redis.fit.docker"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - internal
+
+networks:
+  internal:
+  proxy:
+    external: true
+
+volumes:
+  mysql: {}
+  mongo: {}

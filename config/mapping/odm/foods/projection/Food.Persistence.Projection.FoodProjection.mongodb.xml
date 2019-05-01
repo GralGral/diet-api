@@ -1,0 +1,15 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+    <document name="App\Food\Infrastructure\Food\Persistence\Projection\FoodProjection" collection="foods">
+        <id type="string" strategy="none" />
+        <embed-one field="label" target-document="App\Food\Domain\Food\ValueObject\FoodLabel" />
+        <embed-one field="brand" target-document="App\Food\Domain\Food\ValueObject\FoodBrand" />
+        <embed-one field="barcode" target-document="App\Food\Domain\Food\ValueObject\FoodBarcode" />
+        <embed-one field="serving_size" field-name="servingSize" target-document="App\Food\Domain\Food\ValueObject\FoodServingSize" />
+        <embed-one field="quantity" target-document="App\Food\Domain\Food\ValueObject\FoodQuantity" />
+        <embed-one field="generic" target-document="App\Food\Domain\Food\ValueObject\FoodGeneric" />
+        <embed-one field="nutritional_sheet" field-name="nutritionalSheet" target-document="App\Food\Domain\Shared\ValueObject\NutritionalSheet" />
+    </document>
+</doctrine-mongo-mapping>

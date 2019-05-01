@@ -1,0 +1,20 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+    <document name="App\Food\Infrastructure\Meal\Persistence\Projection\MealProjection" collection="meals">
+        <id type="string" strategy="none" />
+        <embed-one field="date" target-document="App\Food\Domain\Meal\ValueObject\MealDate" />
+        <embed-one field="category" target-document="App\Food\Domain\Meal\ValueObject\MealCategory" />
+        <embed-one field="user_id" field-name="userId" target-document="App\Food\Domain\Shared\ValueObject\UserId" />
+        <embed-one field="nutritional_sheet" field-name="nutritionalSheet" target-document="App\Food\Domain\Shared\ValueObject\NutritionalSheet" />
+        <embed-many
+                field="foods"
+                target-document="App\Food\Domain\Meal\ValueObject\MealFood"
+                collection-class="App\Food\Domain\Meal\ValueObject\MealFoodCollection" />
+        <embed-many
+                field="dishes"
+                target-document="App\Food\Domain\Meal\ValueObject\MealDish"
+                collection-class="App\Food\Domain\Meal\ValueObject\MealDishCollection" />
+    </document>
+</doctrine-mongo-mapping>

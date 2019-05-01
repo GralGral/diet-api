@@ -1,0 +1,11 @@
+api_foods_controllers:
+  resource: '../src/Food/UI/Http/Controller'
+  type: annotation
+  prefix: /api
+  trailing_slash_on_root: false
+
+api_users_controllers:
+  resource: '../src/User/UI/Http/Controller'
+  type: annotation
+  prefix: /api
+  trailing_slash_on_root: false

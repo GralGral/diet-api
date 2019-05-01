@@ -1,0 +1,6 @@
+# see https://github.com/broadway/broadway-bundle
+
+broadway:
+
+    # a service definition id implementing Broadway\EventStore\EventStore
+    event_store: 'Broadway\EventStore\Dbal\DBALEventStore'

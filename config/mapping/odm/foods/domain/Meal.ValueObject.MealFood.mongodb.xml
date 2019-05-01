@@ -1,0 +1,9 @@
+<doctrine-mongo-mapping xmlns="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping"
+                        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                        xsi:schemaLocation="http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping
+                    http://doctrine-project.org/schemas/odm/doctrine-mongo-mapping.xsd">
+    <embedded-document name="App\Food\Domain\Meal\ValueObject\MealFood">
+        <embed-one field="quantity" target-document="App\Food\Domain\Meal\ValueObject\MealFoodQuantity" />
+        <embed-one field="food_id" field-name="foodId" target-document="App\Food\Domain\Shared\ValueObject\FoodId" />
+    </embedded-document>
+</doctrine-mongo-mapping>
