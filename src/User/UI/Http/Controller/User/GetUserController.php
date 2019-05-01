@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/users/{uuid}", name="users_get_one")
+ * @Route("/users/{id}", name="users_get_one")
  */
 final class GetUserController extends QueryController
 {
