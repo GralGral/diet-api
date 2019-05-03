@@ -8,7 +8,7 @@ CONSOLE=bin/console
 ##---------------------------------------------------------------------------
 
 .PHONY: install api fix-cs
-.PRECIOUS: .env docker-compose.yml
+.PRECIOUS: .env docker-compose.override.yml
 
 install: ## Process all step in order to setup the projects
 install: up mysql-reset mongodb-reset
@@ -30,9 +30,9 @@ uninstall: clear-files
 ##---------------------------------------------------------------------------
 
 .PHONY: clear-files docker-files
-.PRECIOUS: .env
+.PRECIOUS: .env docker-compose.override.yml
 
-docker-files: .env docker-compose.yml
+docker-files: .env docker-compose.override.yml
 
 .env: .env.dist
 	@if [ -f .env ]; \

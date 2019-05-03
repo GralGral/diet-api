@@ -1,0 +1,73 @@
+version: "3.7"
+
+services:
+  apache:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=80"
+      - "traefix.backend=diet.apache"
+      - "traefik.frontend.rule=Host:diet-apache.fit.docker"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - internal
+
+  mysql:
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    labels:
+      - "traefik.enable=false"
+    ports:
+      - 3306:3306
+    networks:
+      - proxy
+      - internal
+
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - proxy
+      - internal
+
+  mongo-express:
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.port=8081"
+      - "traefix.backend=diet.mongo-express"
+      - "traefik.frontend.rule=Host:diet-mongo-express.fit.docker"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - internal
+
+  php:
+    labels:
+      - "traefik.enable=false"
+    networks:
+      - proxy
+      - internal
+
+  redis:
+    labels:
+      - "traefik.enable=true"
+      - "traefix.backend=diet.redis"
+      - "traefik.frontend.rule=Host:diet-redis.fit.docker"
+      - "traefik.docker.network=proxy"
+    networks:
+      - proxy
+      - internal
+
+networks:
+  internal:
+  proxy:
+    external: true

@@ -10,12 +10,6 @@ services:
     volumes:
       - ./docker/apache/vhosts.conf:/usr/local/apache2/conf/extra/httpd-vhosts.conf
       - .:/app
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=80"
-      - "traefix.backend=diet.apache"
-      - "traefik.frontend.rule=Host:diet-apache.fit.docker"
-      - "traefik.docker.network=proxy"
     depends_on:
       - php
     networks:
@@ -35,10 +29,6 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    labels:
-      - "traefik.enable=false"
-    ports:
-      - 3306:3306
     networks:
       - proxy
       - internal
@@ -54,8 +44,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-    labels:
-      - "traefik.enable=false"
     networks:
       - proxy
       - internal
@@ -67,12 +55,6 @@ services:
     environment:
       ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USER}
       ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
-    labels:
-      - "traefik.enable=true"
-      - "traefik.port=8081"
-      - "traefix.backend=diet.mongo-express"
-      - "traefik.frontend.rule=Host:diet-mongo-express.fit.docker"
-      - "traefik.docker.network=proxy"
     depends_on:
       - mongo
     networks:
@@ -98,8 +80,6 @@ services:
     volumes:
       - .:/app
       - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini`
-    labels:
-      - "traefik.enable=false"
     networks:
       - proxy
       - internal
@@ -107,11 +87,6 @@ services:
   redis:
     image: redis:alpine
     container_name: diet-api-redis
-    labels:
-      - "traefik.enable=true"
-      - "traefix.backend=diet.redis"
-      - "traefik.frontend.rule=Host:diet-redis.fit.docker"
-      - "traefik.docker.network=proxy"
     networks:
       - proxy
       - internal
